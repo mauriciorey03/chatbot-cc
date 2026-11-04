@@ -1,0 +1,20 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (credenciales)
+.env
+.env.*
+!.env.example
+
+# Medios subidos por usuarios
+uploads/*
+!uploads/.gitkeep
+
+# Configuración local de Claude Code
+.claude/
+
+# Logs y sistema
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
