@@ -6,9 +6,8 @@ node_modules/
 .env.*
 !.env.example
 
-# Medios subidos por usuarios
-uploads/*
-!uploads/.gitkeep
+# Medios locales (no versionar)
+uploads/
 
 # Configuración local de Claude Code
 .claude/
