@@ -9,6 +9,9 @@ const { STATES } = require('../flows/stateMachine');
 const MSG = require('../utils/messages');
 
 const info = require('../handlers/info');
+const auth = require('../handlers/auth');
+const register = require('../handlers/register');
+const update = require('../handlers/update');
 
 // ── Validación de firma Twilio ─────────────────────────────────────────────
 
@@ -64,52 +67,63 @@ async function processIncoming(body) {
   const numMedia = parseInt(body.NumMedia || '0', 10);
   const buttonPayload = (body.ButtonPayload || '').trim();
 
-  console.log(`[Router] userId=${userId} state=${session.state} numMedia=${numMedia} payload="${buttonPayload}" body="${text.slice(0, 60)}"`);
+  console.log(`[Router] userId=${userId} state=${session.state} auth=${session.authenticated} numMedia=${numMedia} payload="${buttonPayload}" body="${text.slice(0, 60)}"`);
+
+  // Identificación vencida por inactividad → se vuelve a pedir la cédula
+  if (sessionSvc.touch(session)) {
+    await wa.sendText(userId, MSG.auth.expired);
+    return;
+  }
+
+  // Imágenes, audios, etc. sin texto → solo atendemos texto
+  if (numMedia > 0 && !text && !buttonPayload) {
+    await wa.sendText(userId, MSG.mediaNotSupported);
+    return;
+  }
+
+  const input = buttonPayload || text;
+  if (!input) return;
+
+  // "menú" en cualquier momento cancela el registro/actualización en curso
+  if (isMenuKeyword(input)) {
+    session.register = null;
+    session.update = null;
+    sessionSvc.save(session);
+    return session.authenticated ? info.sendMainMenu(userId) : auth.sendWelcome(userId);
+  }
+
+  if (session.state === STATES.REGISTERING) return register.handle(userId, input);
+  if (session.state === STATES.UPDATING) return update.handle(userId, input);
+
+  // Sin cédula validada no se muestra el menú
+  if (!session.authenticated) return auth.handle(userId, input);
 
   if (buttonPayload) {
     await handleOption(userId, buttonPayload);
     return;
   }
 
-  // Imágenes, audios, etc. sin texto → solo atendemos texto
-  if (numMedia > 0 && !text) {
-    await wa.sendText(userId, MSG.mediaNotSupported);
-    return;
-  }
-
-  if (text) {
-    await routeText(userId, text);
-  }
+  await routeText(userId, text);
 }
 
-// ── Router de texto ────────────────────────────────────────────────────────
+// ── Router de texto (cliente identificado) ─────────────────────────────────
 
 async function routeText(userId, text) {
   const session = sessionSvc.get(userId);
 
-  // Saludo o palabra de menú → menú principal
-  if (isGreeting(text)) {
-    if (session.state === STATES.IDLE) return info.handleGreeting(userId);
-    return info.sendMainMenu(userId);
-  }
-  if (isMenuKeyword(text)) {
-    return info.sendMainMenu(userId);
-  }
+  // Saludo → menú principal con saludo personalizado
+  if (isGreeting(text)) return info.handleGreeting(userId);
 
   // Número de una opción de la última lista mostrada
   const optionId = wa.resolveButtonReply(text, session.pendingButtonMap);
   if (optionId && (await handleOption(userId, optionId))) return;
-
-  // Primer mensaje con una pregunta directa → saludo corto + respuesta
-  if (session.state === STATES.IDLE) {
-    await wa.sendText(userId, MSG.greeting.new);
-  }
 
   // Cualquier otra cosa → pregunta libre para la IA
   return info.handleQuestion(userId, text);
 }
 
 async function handleOption(userId, optionId) {
+  if (optionId === 'MENU_UPDATE') return update.start(userId);
   if (optionId.startsWith('MENU_')) return info.handleMenuOption(userId, optionId);
   if (optionId.startsWith('STORE_')) return info.handleStoreSelection(userId, optionId);
 

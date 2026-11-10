@@ -9,11 +9,10 @@ const MSG = require('../utils/messages');
 
 // ── Saludo + menú principal ────────────────────────────────────────────────
 
+// Saludo de un cliente ya identificado
 async function handleGreeting(userId) {
   const session = sessionSvc.get(userId);
-  const greeting = session.isReturning
-    ? MSG.greeting.returning(session.userName)
-    : MSG.greeting.new;
+  const greeting = MSG.greeting.returning(session.clientName || session.userName);
 
   await sendMainMenu(userId, `${greeting}\n\n${MSG.menu.body}`);
 }
