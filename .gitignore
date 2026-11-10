@@ -17,3 +17,8 @@ uploads/
 npm-debug.log*
 .DS_Store
 Thumbs.db
+
+# Información del cliente (privada, no versionar)
+src/data/client.js
+*.docx
+docs/funciones-bot.html

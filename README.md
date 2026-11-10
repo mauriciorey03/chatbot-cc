@@ -1,6 +1,6 @@
-# Chatbot Primavera Urbana
+# Chatbot CC
 
-Asistente de WhatsApp del **Centro Comercial y Empresarial Primavera Urbana** (Villavicencio, Meta).
+Asistente de WhatsApp para **centros comerciales**.
 Identifica al cliente con su cédula contra el CRM, permite registrarse y actualizar sus datos
 (con autorización de tratamiento de datos personales) y responde preguntas sobre el centro comercial
 con un menú de opciones y con IA (Claude) limitada a una base de conocimiento propia.
@@ -13,7 +13,7 @@ con un menú de opciones y con IA (Claude) limitada a una base de conocimiento p
 | **Registro** | Flujo guiado de 9 pasos con validación de cada dato, autorización de datos obligatoria y resumen final para confirmar o editar. |
 | **Actualizar mis datos** | Cambio de nombre, apellido, teléfono o email; cada cambio exige aceptar la política antes de guardarse. |
 | **Menú informativo** | Horarios, ubicación, tiendas y marcas, eventos y sorteos, parqueadero y servicios, PQRS y redes sociales. |
-| **Preguntas libres** | Claude responde *solo* con la información de `src/data/knowledgeBase.js`; si el dato no existe, lo dice. |
+| **Preguntas libres** | Claude responde *solo* con la información de `src/data/client.js`; si el dato no existe, lo dice. |
 
 ## Flujo de funcionamiento
 
@@ -96,7 +96,7 @@ flowchart LR
     APP <--> SES[("Sesiones en memoria<br/>node-cache · 24 h")]
     APP <-->|"mssql"| CRM[("SQL Server del CRM")]
     APP <-->|"@anthropic-ai/sdk"| CL["Claude API"]
-    KB["knowledgeBase.js"] --> APP
+    KB["client.js<br/>(datos del cliente)"] --> APP
 ```
 
 - **Twilio WhatsApp**: recepción (webhook) y envío de mensajes. Los menús se envían como listas numeradas.
@@ -116,9 +116,10 @@ flowchart LR
 
 ```bash
 npm install
-cp .env.example .env   # y completa las variables
-npm run dev            # desarrollo (nodemon)
-npm start              # producción
+cp .env.example .env                              # y completa las variables
+cp src/data/client.example.js src/data/client.js  # y completa los datos del cliente
+npm run dev                                       # desarrollo (nodemon)
+npm start                                         # producción
 ```
 
 ### Variables de entorno
@@ -165,7 +166,10 @@ src/
 │   ├── register.js          # Registro + autorización de datos
 │   ├── update.js            # Actualización de datos + autorización
 │   └── info.js              # Menú, tiendas y preguntas libres
-├── data/knowledgeBase.js    # Información del centro comercial (fuente única)
+├── data/
+│   ├── knowledgeBase.js     # Carga los datos del cliente + helpers para menús y prompt
+│   ├── client.example.js    # Plantilla de datos (versionada)
+│   └── client.js            # Datos reales del cliente (privado, en .gitignore)
 ├── services/
 │   ├── ai.js                # Claude
 │   ├── db.js                # SQL Server del CRM
@@ -175,13 +179,18 @@ src/
     ├── messages.js          # Plantillas de texto
     └── validators.js        # Validación de datos del cliente
 docs/
-├── FLOW_DESIGN.md                          # Diseño detallado del flujo y estados
-├── funciones-bot.html                      # Funciones del bot con conversaciones de ejemplo
-└── Funciones-Chatbot-Primavera-Urbana.docx # Mismo contenido en Word
+└── FLOW_DESIGN.md           # Diseño detallado del flujo y estados
 ```
 
-## Actualizar la información del centro comercial
+## Datos del cliente
 
-Edita `src/data/knowledgeBase.js` (transcripción de `PrimaveraUrbana-Chatbot-Preguntas-Data.docx`).
+La información del cliente (nombre, tiendas, horarios, eventos, redes, contacto) **no se versiona**:
+vive en `src/data/client.js`, que está en `.gitignore` junto con los documentos del cliente (`*.docx`,
+`docs/funciones-bot.html`).
+
+1. Copia la plantilla: `cp src/data/client.example.js src/data/client.js`
+2. Reemplaza los valores con los datos reales.
+
+Si `client.js` no existe, el bot arranca con los datos de ejemplo y lo avisa en consola.
 Los menús y el prompt de la IA se generan a partir de ese archivo, así que no hay que tocar nada más.
 Para un sorteo con fechas, agrega `startDate` / `endDate` (`YYYY-MM-DD`) y el bot calculará si está vigente.

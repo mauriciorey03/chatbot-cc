@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const express = require('express');
 const webhookRouter = require('./routes/webhook');
+const { KB } = require('./data/knowledgeBase');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +24,7 @@ app.post('/status_callback', (_req, res) => res.sendStatus(204));
 
 // ── Arranque ────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
-  console.log(`\n🌿 Bot de Primavera Urbana corriendo en http://localhost:${PORT}`);
+  console.log(`\n🤖 Bot de ${KB.shortName} corriendo en http://localhost:${PORT}`);
   console.log(`📡 Webhook URL: ${process.env.BASE_URL || `http://localhost:${PORT}`}/webhook\n`);
 });
 

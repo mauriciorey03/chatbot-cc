@@ -1,8 +1,7 @@
-# Bot de Primavera Urbana – Diseño del flujo
+# Chatbot CC – Diseño del flujo
 
-Asistente de WhatsApp (Twilio) que da información del Centro Comercial Primavera Urbana
-(Villavicencio, Meta). Toda la información sale de `PrimaveraUrbana-Chatbot-Preguntas-Data.docx`,
-transcrita en `src/data/knowledgeBase.js`.
+Asistente de WhatsApp (Twilio) que da información de un centro comercial. Toda la información
+del cliente sale de `src/data/client.js` (privado, ignorado por git; plantilla en `client.example.js`).
 
 ## Arquitectura
 
@@ -30,8 +29,8 @@ Usuario (WhatsApp) → Twilio → POST /webhook → routes/webhook.js
 3. **Menú principal**
    1. Horarios
    2. Ubicación (con enlace a Google Maps)
-   3. Tiendas y marcas → submenú con las 10 tiendas → detalle (local, piso, descripción)
-   4. Eventos y sorteos (el sorteo de la camioneta muestra si está vigente o finalizado según la fecha)
+   3. Tiendas y marcas → submenú con las tiendas configuradas → detalle (local, piso, descripción)
+   4. Eventos y sorteos (los eventos con fechas muestran si están vigentes o finalizados)
    5. Parqueadero y servicios
    6. Atención al cliente / PQRS
    7. Redes sociales
@@ -82,7 +81,7 @@ Solo un mensaje que es únicamente un número cuenta como opción.
 
 ## Actualizar la información
 
-Edita `src/data/knowledgeBase.js`: los menús y el prompt de la IA se generan a partir de ahí.
+Edita `src/data/client.js`: los menús y el prompt de la IA se generan a partir de ahí.
 Para un nuevo sorteo con fechas, agrega `startDate` / `endDate` (YYYY-MM-DD) y el bot calculará
 si está vigente.
 
@@ -97,7 +96,10 @@ src/
 │   ├── auth.js              # Identificación con cédula
 │   ├── register.js          # Registro + autorización de datos personales
 │   └── update.js            # Actualización de datos + autorización
-├── data/knowledgeBase.js    # Información del centro comercial (fuente única)
+├── data/
+│   ├── knowledgeBase.js     # Carga los datos del cliente + helpers
+│   ├── client.example.js    # Plantilla de datos
+│   └── client.js            # Datos reales (privado, en .gitignore)
 ├── services/
 │   ├── ai.js                # Claude (respuestas basadas en la base de conocimiento)
 │   ├── db.js                # SQL Server del CRM (consulta, registro, actualización, política)

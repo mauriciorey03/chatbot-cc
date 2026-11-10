@@ -7,6 +7,7 @@ const wa = require('../services/whatsapp');
 const sessionSvc = require('../services/session');
 const { STATES } = require('../flows/stateMachine');
 const MSG = require('../utils/messages');
+const { KB } = require('../data/knowledgeBase');
 
 const info = require('../handlers/info');
 const auth = require('../handlers/auth');
@@ -32,7 +33,7 @@ function twilioSignatureMiddleware(req, res, next) {
 // ── Ruta GET (health / verificación manual) ────────────────────────────────
 // Twilio no usa hub challenge. Esta ruta solo sirve como health check.
 
-router.get('/', (_req, res) => res.status(200).send('Primavera Urbana bot activo'));
+router.get('/', (_req, res) => res.status(200).send(`Bot de ${KB.shortName} activo`));
 
 // ── Ruta POST — recepción de mensajes de Twilio ────────────────────────────
 

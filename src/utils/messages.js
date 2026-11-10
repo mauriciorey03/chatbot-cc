@@ -6,7 +6,7 @@ const { DOC_TYPE_LABELS } = require('./validators');
 // Plantillas de mensajes del bot. Todo el contenido sale de data/knowledgeBase.js
 
 // Política de tratamiento de datos personales (Ley 1581 de 2012)
-const POLICY_URL = process.env.POLICY_URL || 'https://wegrowcrm.com/policy.html';
+const POLICY_URL = process.env.POLICY_URL;
 // Registro web al que se remite tras varios intentos fallidos de cédula (opcional)
 const REGISTER_URL = process.env.REGISTER_URL;
 
@@ -32,7 +32,7 @@ function formatDate(iso) {
 const MESSAGES = {
   // ── Saludo y menú principal ─────────────────────────────────────────────
   greeting: {
-    new: `¡Hola! 💚 Bienvenido a *Primavera Urbana*, el centro comercial que florece con la naturaleza en Villavicencio. 🌿
+    new: `¡Hola! 💚 Bienvenido a *${KB.shortName}*, ${KB.tagline}
 
 Soy tu asistente virtual y puedo ayudarte con horarios, tiendas, eventos, servicios y más.`,
 
@@ -63,12 +63,12 @@ Soy tu asistente virtual y puedo ayudarte con horarios, tiendas, eventos, servic
   // ── Respuestas directas del menú ────────────────────────────────────────
   info: {
     hours: () =>
-      `*Horario de Primavera Urbana* 🕐\n\n${KB.hours.map((h) => `• ${h.days}: ${h.time}`).join('\n')}\n\n` +
-      `🅿️ El parqueadero funciona de lunes a domingo de 6:00 am a 11:00 pm.`,
+      `*Horario de ${KB.shortName}* 🕐\n\n${KB.hours.map((h) => `• ${h.days}: ${h.time}`).join('\n')}\n\n` +
+      `🅿️ El parqueadero funciona de ${KB.parkingHours}.`,
 
     location: () =>
       `*Ubicación* 📍\n\n${KB.location.address}, ${KB.location.neighborhood}\n${KB.location.city}\n\n` +
-      `🗺️ Cómo llegar: https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Primavera Urbana ${KB.location.address} Villavicencio`)}`,
+      `🗺️ Cómo llegar: https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${KB.shortName} ${KB.location.address} ${KB.location.city}`)}`,
 
     storesBody: '*Tiendas y marcas* 🛍️\n\nElige una tienda para ver dónde queda y qué ofrece:',
 

@@ -1,7 +1,7 @@
 {
-  "name": "chatbot-primavera-urbana",
+  "name": "chatbot-cc",
   "version": "2.0.0",
-  "description": "Chatbot de WhatsApp con información del Centro Comercial Primavera Urbana (Villavicencio)",
+  "description": "Chatbot de WhatsApp para centros comerciales (Twilio + Claude + CRM)",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
