@@ -1,0 +1,835 @@
+<title>Funciones del bot Primavera Urbana</title>
+<style>
+/* Layout: clon de WhatsApp Web — barra lateral = índice de funciones, panel de chat = documento con diagramas y conversaciones de ejemplo */
+:root{
+  --band:#00a884; --app:#d1d7db;
+  --panel:#ffffff; --panel-2:#f0f2f5; --hover:#f5f6f6; --active:#e9edef;
+  --wall:#efeae2; --in:#ffffff; --out:#d9fdd3;
+  --text:#111b21; --muted:#667781; --divider:#e9edef;
+  --chip:#ffffff; --chip-text:#54656f; --notice:#ffeecd; --notice-text:#54656f;
+  --tick:#53bdeb; --link:#027eb5; --green:#00a884; --badge:#1daa61; --badge-text:#ffffff;
+  --chip-on-bg:#d9fdd3; --chip-on-text:#008069;
+  --sys:#e3f2fb; --sys-line:#9cc9e6; --q:#fff4d6; --q-line:#d9b24f;
+  --err:#fdecec; --err-line:#e7a3a3; --err-text:#9f1f1f;
+  --end-bg:#008069; --end-text:#ffffff;
+  --line:#8696a0; --shadow:rgba(11,20,26,.13);
+  --font:"Segoe UI","Helvetica Neue",Helvetica,"Lucida Grande",Arial,"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  --mono:ui-monospace,"Cascadia Mono",Consolas,Menlo,monospace;
+  --doodle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' fill='none' stroke='%23000' stroke-opacity='.06' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 40c0-12 9-20 22-20 0 12-9 20-22 20zM18 40l12-11'/%3E%3Cpath d='M96 18h26a7 7 0 0 1 7 7v12a7 7 0 0 1-7 7h-14l-7 6v-6h-5a7 7 0 0 1-7-7V25a7 7 0 0 1 7-7z'/%3E%3Ccircle cx='40' cy='110' r='9'/%3E%3Cpath d='M40 96v-5M40 129v-5M26 110h-5M59 110h-5'/%3E%3Cpath d='M118 98l5 10 11 1-8 8 2 11-10-5-10 5 2-11-8-8 11-1z'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --band:#0c1317; --app:#0c1317;
+    --panel:#111b21; --panel-2:#202c33; --hover:#202c33; --active:#2a3942;
+    --wall:#0b141a; --in:#202c33; --out:#005c4b;
+    --text:#e9edef; --muted:#8696a0; --divider:#222d34;
+    --chip:#182229; --chip-text:#8696a0; --notice:#182229; --notice-text:#ffd279;
+    --tick:#53bdeb; --link:#53bdeb; --green:#00a884; --badge:#00a884; --badge-text:#111b21;
+    --chip-on-bg:#0a332c; --chip-on-text:#00a884;
+    --sys:#12303d; --sys-line:#2d6a89; --q:#3a2f12; --q-line:#9a7a26;
+    --err:#3a1d20; --err-line:#7a3a3f; --err-text:#ffa4a4;
+    --end-bg:#00a884; --end-text:#0b141a;
+    --line:#8696a0; --shadow:rgba(0,0,0,.45);
+    --doodle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' fill='none' stroke='%23fff' stroke-opacity='.045' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 40c0-12 9-20 22-20 0 12-9 20-22 20zM18 40l12-11'/%3E%3Cpath d='M96 18h26a7 7 0 0 1 7 7v12a7 7 0 0 1-7 7h-14l-7 6v-6h-5a7 7 0 0 1-7-7V25a7 7 0 0 1 7-7z'/%3E%3Ccircle cx='40' cy='110' r='9'/%3E%3Cpath d='M40 96v-5M40 129v-5M26 110h-5M59 110h-5'/%3E%3Cpath d='M118 98l5 10 11 1-8 8 2 11-10-5-10 5 2-11-8-8 11-1z'/%3E%3C/svg%3E");
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --band:#0c1317; --app:#0c1317;
+  --panel:#111b21; --panel-2:#202c33; --hover:#202c33; --active:#2a3942;
+  --wall:#0b141a; --in:#202c33; --out:#005c4b;
+  --text:#e9edef; --muted:#8696a0; --divider:#222d34;
+  --chip:#182229; --chip-text:#8696a0; --notice:#182229; --notice-text:#ffd279;
+  --tick:#53bdeb; --link:#53bdeb; --green:#00a884; --badge:#00a884; --badge-text:#111b21;
+  --chip-on-bg:#0a332c; --chip-on-text:#00a884;
+  --sys:#12303d; --sys-line:#2d6a89; --q:#3a2f12; --q-line:#9a7a26;
+  --err:#3a1d20; --err-line:#7a3a3f; --err-text:#ffa4a4;
+  --end-bg:#00a884; --end-text:#0b141a;
+  --line:#8696a0; --shadow:rgba(0,0,0,.45);
+  --doodle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' fill='none' stroke='%23fff' stroke-opacity='.045' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 40c0-12 9-20 22-20 0 12-9 20-22 20zM18 40l12-11'/%3E%3Cpath d='M96 18h26a7 7 0 0 1 7 7v12a7 7 0 0 1-7 7h-14l-7 6v-6h-5a7 7 0 0 1-7-7V25a7 7 0 0 1 7-7z'/%3E%3Ccircle cx='40' cy='110' r='9'/%3E%3Cpath d='M40 96v-5M40 129v-5M26 110h-5M59 110h-5'/%3E%3Cpath d='M118 98l5 10 11 1-8 8 2 11-10-5-10 5 2-11-8-8 11-1z'/%3E%3C/svg%3E");
+  color-scheme:dark;
+}
+
+html{height:100%;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+body{
+  height:100%;margin:0;position:relative;
+  background:var(--app);color:var(--text);
+  font:14.2px/1.4 var(--font);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:18px;
+}
+body::after{content:"";position:absolute;inset:0 0 auto;height:127px;background:var(--band);z-index:0}
+a{color:var(--link)}
+a:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+.app{
+  position:relative;z-index:1;height:100%;max-width:1600px;margin:0 auto;
+  display:grid;grid-template-columns:minmax(300px,30%) minmax(0,1fr);
+  background:var(--panel);box-shadow:0 6px 18px var(--shadow);overflow:hidden;border-radius:4px;
+}
+
+/* ── Barra lateral ─────────────────────────────── */
+.side{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--divider);background:var(--panel)}
+.side-head{height:60px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--panel-2)}
+.side-head h1{margin:0;font-size:16px;font-weight:600;flex:1;text-wrap:balance}
+.side-head small{color:var(--muted);font-size:12.5px}
+.search{flex:none;padding:7px 12px;border-bottom:1px solid var(--divider)}
+.search label{display:flex;align-items:center;gap:14px;background:var(--panel-2);border-radius:8px;padding:0 12px;height:35px;color:var(--muted)}
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--text);font:inherit;font-size:14px;outline:none}
+.search input::placeholder{color:var(--muted)}
+.list{flex:1;overflow-y:auto}
+.item{display:grid;grid-template-columns:49px minmax(0,1fr);gap:13px;align-items:center;height:72px;padding-left:13px;color:inherit;text-decoration:none}
+.item:hover{background:var(--hover)}
+.item.on{background:var(--active)}
+.av{width:49px;height:49px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--panel-2)}
+.av.bot{background:var(--green)}
+.item-meta{height:100%;border-bottom:1px solid var(--divider);padding-right:15px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;row-gap:3px;column-gap:8px}
+.item-name{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-file{font:11.5px var(--mono);color:var(--muted);align-self:center}
+.item-prev{font-size:13.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{justify-self:end;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--badge);color:var(--badge-text);font-size:12px;font-weight:700;display:inline-grid;place-items:center;font-variant-numeric:tabular-nums}
+.empty{padding:28px 20px;color:var(--muted);text-align:center;font-size:14px}
+
+/* ── Panel de chat ─────────────────────────────── */
+.chat{display:flex;flex-direction:column;min-height:0;min-width:0}
+.chat-head{height:60px;flex:none;display:flex;align-items:center;gap:14px;padding:0 16px;background:var(--panel-2)}
+.chat-head .av{width:40px;height:40px}
+.chat-head b{display:block;font-size:16px;font-weight:500}
+.chat-head small{display:block;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-head > div{min-width:0}
+.chips{display:none;position:relative;flex:none;gap:8px;overflow-x:auto;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--divider);scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:6px 12px;border-radius:18px;background:var(--panel-2);color:var(--muted);text-decoration:none;font-size:13.5px;white-space:nowrap}
+.chip.on{background:var(--chip-on-bg);color:var(--chip-on-text);font-weight:600}
+.scroll{flex:1;overflow-y:auto;background-color:var(--wall);background-image:var(--doodle);padding:10px clamp(14px,5%,64px) 30px}
+@media (prefers-reduced-motion: no-preference){.scroll{scroll-behavior:smooth}}
+.composer{flex:none;display:flex;align-items:center;gap:16px;min-height:62px;padding:8px 16px;background:var(--panel-2);color:var(--muted)}
+.composer .fake{flex:1;min-width:0;background:var(--panel);border-radius:8px;padding:10px 12px;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.composer svg{flex:none}
+
+/* ── Elementos del chat ────────────────────────── */
+.sec{scroll-margin-top:6px;padding-bottom:6px}
+.day{position:sticky;top:6px;z-index:5;display:flex;justify-content:center;margin:16px 0 10px;pointer-events:none}
+.day span{background:var(--chip);color:var(--chip-text);font-size:12.5px;padding:5px 12px 6px;border-radius:7.5px;box-shadow:0 1px .5px var(--shadow);text-transform:uppercase;letter-spacing:.03em}
+.notice{max-width:560px;margin:10px auto;background:var(--notice);color:var(--notice-text);font-size:12.5px;line-height:1.45;text-align:center;border-radius:7.5px;padding:6px 12px;box-shadow:0 1px .5px var(--shadow)}
+.row{display:flex;margin-top:2px}
+.row.first{margin-top:12px}
+.row.out{justify-content:flex-end}
+.msg{position:relative;max-width:min(65%,560px);padding:6px 8px 8px 9px;border-radius:7.5px;background:var(--in);box-shadow:0 1px .5px var(--shadow);overflow-wrap:anywhere;min-width:0}
+.row.out .msg{background:var(--out)}
+.msg.tail::before{content:"";position:absolute;top:0;width:8px;height:13px;background:inherit}
+.row.in .msg.tail{border-top-left-radius:0}
+.row.in .msg.tail::before{left:-8px;clip-path:polygon(100% 0,0 0,100% 100%)}
+.row.out .msg.tail{border-top-right-radius:0}
+.row.out .msg.tail::before{right:-8px;clip-path:polygon(0 0,100% 0,0 100%)}
+.meta{float:right;display:inline-flex;align-items:center;gap:3px;margin:9px 0 -6px 12px;font-size:11px;line-height:1;color:var(--muted);font-variant-numeric:tabular-nums}
+.meta svg{color:var(--tick)}
+.msg b{font-weight:600}
+.quote{display:block;margin-top:6px;padding:6px 10px;border-left:4px solid var(--green);border-radius:6px;background:var(--panel-2);font-size:13px;color:var(--muted)}
+.quote b{display:block;color:var(--green);font-size:12.5px}
+.photo{width:240px;max-width:100%;aspect-ratio:16/10;border-radius:6px;display:grid;place-items:center;color:var(--muted);background:linear-gradient(135deg,var(--panel-2),var(--active))}
+
+/* Burbujas con contenido de documento */
+.row.wide .msg{max-width:100%;width:min(100%,840px)}
+.msg.rich h3{margin:2px 0 6px;font-size:14.5px;font-weight:600}
+.msg.rich ul,.msg.rich ol{margin:4px 0 2px;padding-left:20px;display:grid;gap:4px}
+.msg.rich p{margin:6px 0}
+.doc-head{display:flex;align-items:center;gap:10px;padding:8px 10px;margin:-2px -4px 8px;border-radius:6px;background:var(--panel-2)}
+.doc-ic{flex:none;width:34px;height:40px;border-radius:5px;background:var(--green);display:grid;place-items:center;color:#fff}
+.doc-head b{display:block;font-size:14px}
+.doc-head small{display:block;color:var(--muted);font-size:12px}
+.doc-head code{font-family:var(--mono);font-size:11.5px}
+.cap{margin:10px 2px 0;font-size:13.8px;line-height:1.5;max-width:68ch}
+.cap ul{margin:6px 0 0;padding-left:20px;display:grid;gap:3px}
+code{font-family:var(--mono);font-size:12.5px;background:var(--panel-2);border-radius:4px;padding:0 4px}
+.tblwrap{overflow-x:auto;margin-top:6px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:420px}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:6px 8px;border-top:1px solid var(--divider)}
+.tbl th{font-weight:600;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;border-top:0}
+.tbl td:first-child{white-space:nowrap;font-weight:600}
+
+/* ── Diagramas de flujo ────────────────────────── */
+.diagram{--g:28px;overflow-x:auto;padding:18px 14px 14px;border-radius:6px;background-color:var(--wall);background-image:var(--doodle)}
+.node{position:relative;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 11px;border-radius:8px;border:1px solid transparent;background:var(--in);color:var(--text);font-size:12.6px;line-height:1.35;box-shadow:0 1px .5px var(--shadow);overflow-wrap:anywhere}
+.node small{color:var(--muted);font-size:11.5px}
+.node.user{background:var(--out)}
+.node.bot{background:var(--in);border-color:var(--divider)}
+.node.q{background:var(--q);border:1.5px dashed var(--q-line)}
+.node.sys{background:var(--sys);border-color:var(--sys-line)}
+.node.end{background:var(--end-bg);color:var(--end-text);border-radius:18px;font-weight:600}
+.node.end small{color:inherit;opacity:.85;font-weight:400}
+.node.err{background:var(--err);border-color:var(--err-line);color:var(--err-text)}
+.node.err small{color:inherit;opacity:.85}
+
+/* Tronco: camino principal a la izquierda, salidas a la derecha */
+.trunk{display:grid;grid-template-columns:minmax(0,1.15fr) 82px minmax(0,1fr);row-gap:var(--g);min-width:470px;max-width:760px}
+.step{grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:center}
+.step.two{grid-template-rows:auto auto;row-gap:10px}
+.step > .node:first-child{grid-column:1;grid-row:1/-1;align-self:stretch}
+.step > .arrow{grid-column:2;align-self:stretch}
+.step > .out{grid-column:3}
+.step > .r2{grid-row:2}
+.step > .note{grid-column:3;margin:0 0 0 14px;font-size:11.5px;color:var(--muted)}
+.arrow{position:relative;min-height:30px}
+.arrow::before{content:"";position:absolute;left:4px;right:3px;top:50%;height:10px;margin-top:-5px;
+  background:linear-gradient(var(--line),var(--line)) left center/calc(100% - 7px) 2px no-repeat,
+             conic-gradient(from 240deg at 100% 50%,var(--line) 60deg,transparent 0) right center/8px 10px no-repeat}
+.arrow i{position:absolute;left:2px;right:2px;bottom:calc(50% + 6px);text-align:center;font-style:normal;font-size:11px;font-weight:700;line-height:1.15;color:var(--muted)}
+.step + .step > .node:first-child::before,
+.stack > * + *::before,
+.arm > *::before{content:"";position:absolute;left:calc(50% - 5px);top:calc(-1 * var(--g) - 1px);width:10px;height:var(--g);
+  background:linear-gradient(var(--line),var(--line)) center top/2px calc(100% - 6px) no-repeat,
+             conic-gradient(from 330deg at 50% 100%,var(--line) 60deg,transparent 0) center bottom/10px 8px no-repeat}
+.step + .step > .node[data-in]::after{content:attr(data-in);position:absolute;left:calc(50% + 9px);top:calc(-1 * var(--g) + 3px);font-size:11px;font-weight:700;line-height:1.2;color:var(--muted);white-space:nowrap}
+
+/* Pila centrada con abanico (arquitectura) */
+.stack{display:flex;flex-direction:column;align-items:center;row-gap:var(--g);min-width:560px}
+.stack > *{position:relative}
+.stack > .node{width:min(100%,360px)}
+.fan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;column-gap:16px;width:100%}
+.arm{position:relative;display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:var(--g);padding-block:var(--g)}
+.arm::before,.arm::after{content:"";position:absolute;left:-8px;right:-8px;border-top:2px solid var(--line)}
+.arm::before{top:0}
+.arm::after{bottom:0}
+.arm:first-child::before,.arm:first-child::after{left:50%}
+.arm:last-child::before,.arm:last-child::after{right:50%}
+.arm > *{position:relative}
+.arm > :last-child::after{content:"";position:absolute;left:calc(50% - 1px);bottom:calc(-1 * var(--g) - 1px);width:2px;height:var(--g);background:var(--line)}
+.fan::before{background:linear-gradient(var(--line),var(--line)) center top/2px 100% no-repeat !important}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.legend .node{display:inline-flex;padding:5px 10px}
+
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;min-width:0}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:9px;row-gap:1px;align-items:center;padding:8px 10px;border-radius:8px;background:var(--in);border:1px solid var(--divider);box-shadow:0 1px .5px var(--shadow);font-size:12.6px}
+.opt .k{grid-row:span 2;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;background:var(--panel-2);font-weight:700;font-variant-numeric:tabular-nums}
+.opt small{color:var(--muted);font-size:11.5px}
+.opt.flow{background:var(--out)}
+
+@media (max-width: 760px){
+  body{padding-block:12px}
+  body::after{height:84px}
+  .app{grid-template-columns:minmax(0,1fr);border-radius:10px}
+  .side{display:none}
+  .chips{display:flex}
+  .msg{max-width:88%}
+  .scroll{padding-inline:12px}
+  .composer{gap:12px;padding:8px 12px}
+}
+</style>
+
+<div class="app">
+  <aside class="side" aria-label="Funciones del chatbot">
+    <div class="side-head">
+      <h1>Funciones del chatbot</h1>
+      <small>12 chats</small>
+    </div>
+    <div class="search">
+      <label for="q">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        <input id="q" type="search" placeholder="Buscar una función" autocomplete="off">
+      </label>
+    </div>
+    <nav class="list" id="list">
+      <a class="item" data-nav href="#resumen"><span class="av bot"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M5 19c0-8 5-14 15-14 0 9-5 14-12 14 2-3 4-5 7-7-4 1-7 4-9 7H5z"/></svg></span><span class="item-meta"><span class="item-name">Resumen del asistente</span><span class="item-file">README</span><span class="item-prev">Qué hace el bot y cómo está armado</span></span></a>
+      <a class="item" data-nav href="#enrutamiento"><span class="av">🔀</span><span class="item-meta"><span class="item-name">Cómo se atiende cada mensaje</span><span class="item-file">webhook.js</span><span class="item-prev">El orden en que el bot decide qué responder</span></span></a>
+      <a class="item" data-nav href="#identificacion"><span class="av">🪪</span><span class="item-meta"><span class="item-name">Identificación con cédula</span><span class="item-file">auth.js</span><span class="item-prev">Bienvenida, política de datos y validación en WEGROWCRM</span></span></a>
+      <a class="item" data-nav href="#registro"><span class="av">📝</span><span class="item-meta"><span class="item-name">Registro de cliente</span><span class="item-file">register.js</span><span class="item-prev">9 preguntas, autorización y confirmación</span><span class="badge">9</span></span></a>
+      <a class="item" data-nav href="#menu"><span class="av">📋</span><span class="item-meta"><span class="item-name">Menú principal</span><span class="item-file">info.js</span><span class="item-prev">8 opciones numeradas</span><span class="badge">8</span></span></a>
+      <a class="item" data-nav href="#informacion"><span class="av">🕐</span><span class="item-meta"><span class="item-name">Horarios, ubicación y servicios</span><span class="item-file">messages.js</span><span class="item-prev">5 respuestas fijas del menú</span><span class="badge">5</span></span></a>
+      <a class="item" data-nav href="#eventos"><span class="av">🎉</span><span class="item-meta"><span class="item-name">Eventos y sorteos</span><span class="item-file">knowledgeBase.js</span><span class="item-prev">2 eventos, vigencia según la fecha de hoy</span><span class="badge">2</span></span></a>
+      <a class="item" data-nav href="#tiendas"><span class="av">🛍️</span><span class="item-meta"><span class="item-name">Tiendas y marcas</span><span class="item-file">info.js</span><span class="item-prev">10 tiendas con local, piso y descripción</span><span class="badge">10</span></span></a>
+      <a class="item" data-nav href="#actualizar"><span class="av">✏️</span><span class="item-meta"><span class="item-name">Actualizar mis datos</span><span class="item-file">update.js</span><span class="item-prev">4 campos: nombre, apellido, teléfono y email</span><span class="badge">4</span></span></a>
+      <a class="item" data-nav href="#ia"><span class="av">💬</span><span class="item-meta"><span class="item-name">Preguntas libres con IA</span><span class="item-file">ai.js</span><span class="item-prev">La IA responde solo con la base de conocimiento</span></span></a>
+      <a class="item" data-nav href="#reglas"><span class="av">⚙️</span><span class="item-meta"><span class="item-name">Comandos y reglas generales</span><span class="item-file">session.js</span><span class="item-prev">«menú», saludos, inactividad y errores</span></span></a>
+      <a class="item" data-nav href="#estados"><span class="av">🔄</span><span class="item-meta"><span class="item-name">Estados de la conversación</span><span class="item-file">stateMachine.js</span><span class="item-prev">7 estados del flujo</span><span class="badge">7</span></span></a>
+      <p class="empty" id="empty" hidden>Ninguna función coincide con la búsqueda.</p>
+    </nav>
+  </aside>
+
+  <main class="chat">
+    <header class="chat-head">
+      <span class="av bot"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M5 19c0-8 5-14 15-14 0 9-5 14-12 14 2-3 4-5 7-7-4 1-7 4-9 7H5z"/></svg></span>
+      <div><b>Asistente Primavera Urbana</b><small>en línea · funciones al 9 de noviembre de 2026</small></div>
+    </header>
+    <nav class="chips" aria-label="Ir a una función">
+      <a class="chip" data-nav href="#resumen">Resumen</a>
+      <a class="chip" data-nav href="#enrutamiento">Enrutamiento</a>
+      <a class="chip" data-nav href="#identificacion">Identificación</a>
+      <a class="chip" data-nav href="#registro">Registro</a>
+      <a class="chip" data-nav href="#menu">Menú</a>
+      <a class="chip" data-nav href="#informacion">Información</a>
+      <a class="chip" data-nav href="#eventos">Eventos</a>
+      <a class="chip" data-nav href="#tiendas">Tiendas</a>
+      <a class="chip" data-nav href="#actualizar">Actualizar datos</a>
+      <a class="chip" data-nav href="#ia">IA</a>
+      <a class="chip" data-nav href="#reglas">Reglas</a>
+      <a class="chip" data-nav href="#estados">Estados</a>
+    </nav>
+
+    <div class="scroll" id="scroll">
+
+      <!-- ═══ RESUMEN ═══ -->
+      <section class="sec" id="resumen">
+        <div class="day"><span>Resumen del asistente</span></div>
+        <p class="notice">🔒 Documento de funciones del asistente de WhatsApp de Primavera Urbana (Villavicencio). Refleja el código al 9 de noviembre de 2026, incluidos los cambios locales que aún no están en un commit: identificación, registro y actualización de datos.</p>
+
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Arquitectura · Cómo viaja un mensaje</b><small>Diagrama de flujo · <code>src/</code></small></span></div>
+          <div class="diagram">
+            <div class="stack">
+              <div class="node user"><b>El cliente escribe al WhatsApp del centro comercial</b></div>
+              <div class="node sys"><b>Twilio</b> recibe el mensaje y lo envía al servidor del bot<small>POST /webhook</small></div>
+              <div class="node sys"><b>Servidor del bot</b> (Node.js + Express) comprueba la firma de Twilio y el enrutador elige el flujo</div>
+              <div class="fan">
+                <div class="arm">
+                  <div class="node bot"><b>Identificación, registro y actualización de datos</b></div>
+                  <div class="node sys"><b>WEGROWCRM · SQL Server</b><small>tpContacto, tpValorContacto, tpContactoInfoExtra</small></div>
+                </div>
+                <div class="arm">
+                  <div class="node bot"><b>Menú, información, eventos y tiendas</b></div>
+                  <div class="node sys"><b>Base de conocimiento</b><small>knowledgeBase.js</small></div>
+                </div>
+                <div class="arm">
+                  <div class="node bot"><b>Preguntas libres</b></div>
+                  <div class="node sys"><b>Inteligencia artificial</b><small>con la base de conocimiento</small></div>
+                </div>
+              </div>
+              <div class="node end">La respuesta vuelve por Twilio al WhatsApp del cliente</div>
+            </div>
+          </div>
+          <div class="cap">Cada mensaje llega por Twilio al servidor del bot. Si el mensaje no trae una firma válida de Twilio, se rechaza. El enrutador revisa en qué punto está la conversación y elige el flujo: los datos del cliente se consultan y guardan en WEGROWCRM, la información del centro comercial sale de la base de conocimiento y las preguntas abiertas las responde la IA con esa misma información.</div>
+          <span class="meta">9:00</span>
+        </div></div>
+
+        <div class="row in first"><div class="msg tail rich">
+          <h3>Lo que hace el bot hoy</h3>
+          <ol>
+            <li><a href="#identificacion">Pide la cédula</a> y la valida contra WEGROWCRM antes de mostrar el menú.</li>
+            <li><a href="#registro">Registra clientes nuevos</a> con autorización de tratamiento de datos (Ley 1581 de 2012).</li>
+            <li>Muestra un <a href="#menu">menú principal</a> de 8 opciones numeradas.</li>
+            <li>Da <a href="#informacion">horarios, ubicación con Google Maps, servicios, atención al cliente / PQRS y redes sociales</a>.</li>
+            <li>Muestra <a href="#eventos">eventos y sorteos</a> y calcula si están vigentes, próximos o finalizados.</li>
+            <li>Tiene un <a href="#tiendas">directorio de 10 tiendas</a> con local, piso y descripción.</li>
+            <li>Deja <a href="#actualizar">actualizar nombre, apellido, teléfono y email</a>, con autorización en cada cambio.</li>
+            <li>Responde <a href="#ia">preguntas libres con IA</a>, solo con la información del centro comercial.</li>
+            <li>Entiende <a href="#reglas">comandos globales</a>: «menú», saludos, «cancelar» y «0».</li>
+            <li>Cierra la sesión tras 30 minutos sin actividad, limita los intentos de cédula y avisa cuando algo falla.</li>
+          </ol>
+          <span class="meta">9:01</span>
+        </div></div>
+
+        <div class="row in"><div class="msg rich">
+          <h3>Cómo leer los diagramas</h3>
+          <div class="legend">
+            <span class="node user">Lo que escribe el cliente</span>
+            <span class="node bot">Lo que responde el bot</span>
+            <span class="node q">Decisión</span>
+            <span class="node sys">Consulta a un sistema</span>
+            <span class="node end">Resultado</span>
+            <span class="node err">Cancelación o error</span>
+          </div>
+          <p>El camino principal baja por la izquierda. Las flechas a la derecha son las salidas de cada decisión, con su condición escrita encima.</p>
+          <span class="meta">9:01</span>
+        </div></div>
+
+        <div class="row in"><div class="msg rich">
+          <h3>Piezas técnicas</h3>
+          <ul>
+            <li><b>Servidor:</b> Node.js con Express. Rutas <code>POST /webhook</code>, <code>GET /webhook</code>, <code>GET /health</code> y <code>POST /status_callback</code>.</li>
+            <li><b>WhatsApp:</b> Twilio. Los menús se envían como texto numerado.</li>
+            <li><b>IA:</b> modelo de lenguaje que responde solo con la base de conocimiento, con caché de las instrucciones para responder más rápido.</li>
+            <li><b>WEGROWCRM:</b> SQL Server (la misma base del bot general). Procedimiento <code>dbo.PA_SITE_OCR</code> para registrar clientes.</li>
+            <li><b>Contenido:</b> <code>src/data/knowledgeBase.js</code>, transcrito de <code>PrimaveraUrbana-Chatbot-Preguntas-Data.docx</code>. Los menús y el prompt de la IA salen de ahí.</li>
+            <li><b>Sesiones:</b> en la memoria del servidor durante 24 horas.</li>
+            <li><b>Listo pero sin usar:</b> el cliente de WhatsApp ya puede enviar botones de respuesta rápida, imágenes y enlaces, y descargar archivos, pero ningún flujo los usa todavía.</li>
+          </ul>
+          <span class="meta">9:02</span>
+        </div></div>
+      </section>
+
+      <!-- ═══ ENRUTAMIENTO ═══ -->
+      <section class="sec" id="enrutamiento">
+        <div class="day"><span>Cómo se atiende cada mensaje</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Enrutador de mensajes</b><small>Diagrama de flujo · <code>src/routes/webhook.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Llega un mensaje</b></div></div>
+              <div class="step"><div class="node q">¿Pasaron más de 30 min sin escribir, con una sesión abierta?</div><span class="arrow"><i>Sí</i></span><div class="node bot out">«Tu sesión se cerró por inactividad» y pide la cédula</div></div>
+              <div class="step"><div class="node q" data-in="No">¿Es una foto, audio o archivo sin texto?</div><span class="arrow"><i>Sí</i></span><div class="node bot out">Avisa que solo lee mensajes de texto</div></div>
+              <div class="step"><div class="node q" data-in="No">¿Escribió «menú», «inicio», «volver»…?</div><span class="arrow"><i>Sí</i></span><div class="node end out">Cancela lo que esté en curso y muestra el menú<small>o la bienvenida, si no se ha identificado</small></div></div>
+              <div class="step"><div class="node q" data-in="No">¿Está a mitad de un registro?</div><span class="arrow"><i>Sí</i></span><div class="node end out"><a href="#registro" style="color:inherit">Sigue el registro</a></div></div>
+              <div class="step"><div class="node q" data-in="No">¿Está actualizando sus datos?</div><span class="arrow"><i>Sí</i></span><div class="node end out"><a href="#actualizar" style="color:inherit">Sigue la actualización</a></div></div>
+              <div class="step"><div class="node q" data-in="No">¿Aún no se identificó con su cédula?</div><span class="arrow"><i>Sí</i></span><div class="node end out"><a href="#identificacion" style="color:inherit">Identificación</a></div></div>
+              <div class="step"><div class="node q" data-in="No">¿Es solo un saludo? <small>«hola», «buenas tardes»</small></div><span class="arrow"><i>Sí</i></span><div class="node bot out">Saludo con su nombre + menú</div></div>
+              <div class="step"><div class="node q" data-in="No">¿Es solo el número de una opción de la última lista?</div><span class="arrow"><i>Sí</i></span><div class="node bot out">Responde esa opción</div></div>
+              <div class="step"><div class="node sys" data-in="No"><b>La IA responde la pregunta</b></div></div>
+            </div>
+          </div>
+          <div class="cap">El bot revisa estas condiciones en este orden con cada mensaje. La primera que se cumple decide la respuesta. Por eso «menú» funciona en cualquier momento, incluso en medio de un registro, y por eso nada del menú se muestra a quien no se ha identificado.</div>
+          <span class="meta">9:10</span>
+        </div></div>
+      </section>
+
+      <!-- ═══ IDENTIFICACIÓN ═══ -->
+      <section class="sec" id="identificacion">
+        <div class="day"><span>Identificación con cédula</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Identificación con cédula</b><small>Diagrama de flujo · <code>src/handlers/auth.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Primer mensaje</b><small>cualquier texto</small></div></div>
+              <div class="step"><div class="node bot">Bienvenida + enlace a la política de datos + pide la cédula</div></div>
+              <div class="step"><div class="node q">¿Escribió «REGISTRO»?</div><span class="arrow"><i>Sí</i></span><div class="node end out"><a href="#registro" style="color:inherit">Empieza el registro</a></div></div>
+              <div class="step"><div class="node q" data-in="No">¿Parece una cédula?<small>solo números, mínimo 6 dígitos; acepta puntos y espacios</small></div><span class="arrow"><i>No</i></span><div class="node bot out">Recuerda enviar la cédula o escribir REGISTRO</div></div>
+              <div class="step"><div class="node sys" data-in="Sí">Busca la cédula en WEGROWCRM<small>tpContacto.conNdoc</small></div><span class="arrow"><i>falla</i></span><div class="node err out">«No pudimos validar tu información» + WhatsApp de Atención al Cliente</div></div>
+              <div class="step two"><div class="node q">¿La encontró?</div><span class="arrow"><i>No</i></span><div class="node bot out">«No encontramos tu cédula. Intenta nuevamente o escribe REGISTRO»</div><span class="arrow r2"><i>No, 3.ª vez</i></span><div class="node bot out r2">Ofrece REGISTRO, el registro web y el WhatsApp de Atención al Cliente</div></div>
+              <div class="step"><div class="node bot" data-in="Sí">«¡Hola, <i>nombre</i>! 💚» + menú principal</div></div>
+              <div class="step"><div class="node end">Cliente identificado<small>mientras siga escribiendo (30 min de inactividad la cierran)</small></div></div>
+            </div>
+          </div>
+          <div class="cap">La identificación es obligatoria: sin una cédula que exista en WEGROWCRM no se muestra el menú ni se responden preguntas. Al tercer intento fallido el bot ofrece el registro y reinicia el contador. El enlace al registro web solo aparece si se configura <code>REGISTER_URL</code>; la política de datos se toma de <code>POLICY_URL</code>.</div>
+          <span class="meta">9:20</span>
+        </div></div>
+        <div class="convo" data-chat="auth"></div>
+      </section>
+
+      <!-- ═══ REGISTRO ═══ -->
+      <section class="sec" id="registro">
+        <div class="day"><span>Registro de cliente</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Registro de cliente</b><small>Diagrama de flujo · <code>src/handlers/register.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Escribe «REGISTRO»</b></div></div>
+              <div class="step"><div class="node bot">Muestra la política de datos y explica que «cancelar» sale en cualquier momento</div><p class="note">«cancelar» → registro cancelado</p></div>
+              <div class="step"><div class="node bot">Pregunta 1 · Documento</div></div>
+              <div class="step"><div class="node q">¿El documento ya está en WEGROWCRM?</div><span class="arrow"><i>Sí</i></span><div class="node err out">«Esa cédula ya está registrada» y vuelve a la identificación</div></div>
+              <div class="step"><div class="node bot" data-in="No">Preguntas 2 a 8<small>tipo, nombres, apellidos, género, fecha de nacimiento, email y teléfono</small></div><span class="arrow"><i>dato inválido</i></span><div class="node err out">Explica el error y repite la misma pregunta</div></div>
+              <div class="step"><div class="node q">Pregunta 9 · ¿Autoriza el tratamiento de datos?</div><span class="arrow"><i>No acepto</i></span><div class="node err out">Cancela el registro sin guardar nada</div></div>
+              <div class="step"><div class="node bot" data-in="Acepto">Resumen de los datos para confirmar</div></div>
+              <div class="step two"><div class="node q">¿Qué responde al resumen?</div><span class="arrow"><i>EDITAR campo</i></span><div class="node bot out">Repite la pregunta de ese campo y vuelve al resumen</div><span class="arrow r2"><i>NO</i></span><div class="node err out r2">Registro cancelado</div></div>
+              <div class="step"><div class="node sys" data-in="SI">Guarda el cliente en WEGROWCRM y registra la autorización<small>dbo.PA_SITE_OCR + tpContactoInfoExtra</small></div><span class="arrow"><i>falla</i></span><div class="node err out">«No pudimos completar tu registro» + Atención al Cliente</div></div>
+              <div class="step"><div class="node end">«¡Registro completado!»<small>queda identificado y ve el menú</small></div></div>
+            </div>
+          </div>
+          <div class="cap">La autorización de datos personales es obligatoria y va al final: si el cliente no acepta, no se guarda nada. Al guardar, el bot llama al procedimiento <code>dbo.PA_SITE_OCR</code> de WEGROWCRM y marca la autorización (<code>infoPolDat</code>) en <code>tpContactoInfoExtra</code>. El cliente queda identificado sin tener que enviar la cédula otra vez.</div>
+          <span class="meta">9:30</span>
+        </div></div>
+
+        <div class="row in first"><div class="msg tail rich">
+          <h3>Qué acepta cada pregunta</h3>
+          <div class="tblwrap"><table class="tbl">
+            <thead><tr><th>Pregunta</th><th>Respuestas válidas</th></tr></thead>
+            <tbody>
+              <tr><td>Documento</td><td>Solo números, mínimo 6 dígitos. Si ya existe en WEGROWCRM, no deja seguir.</td></tr>
+              <tr><td>Tipo</td><td>1 o CC · 2 o CE · 3, PAS o PASAPORTE</td></tr>
+              <tr><td>Nombres y apellidos</td><td>Solo letras, con tildes, ñ y espacios. Se guardan con mayúscula inicial.</td></tr>
+              <tr><td>Género</td><td>M, Masculino u Hombre · F, Femenino o Mujer</td></tr>
+              <tr><td>Fecha</td><td>AAAA-MM-DD (también con / o .). Fecha real, no futura, desde 1900.</td></tr>
+              <tr><td>Email</td><td>Formato nombre@dominio.com. Se guarda en minúsculas.</td></tr>
+              <tr><td>Teléfono</td><td>Mínimo 7 dígitos. Se quitan espacios y signos.</td></tr>
+              <tr><td>Autorización</td><td>1, Acepto o Sí · 2, No o No acepto</td></tr>
+            </tbody>
+          </table></div>
+          <p>En el resumen se puede escribir <b>editar</b> seguido de: documento, tipo, nombre, apellido, genero, fecha, email (o correo) o telefono.</p>
+          <span class="meta">9:31</span>
+        </div></div>
+        <div class="convo" data-chat="register"></div>
+      </section>
+
+      <!-- ═══ MENÚ ═══ -->
+      <section class="sec" id="menu">
+        <div class="day"><span>Menú principal</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 5h16v2H4zm0 6h16v2H4zm0 6h16v2H4z"/></svg></span><span><b>Mapa · Menú principal</b><small>Opciones y destino · <code>src/utils/messages.js</code></small></span></div>
+          <div class="diagram">
+            <div class="opts">
+              <div class="opt"><span class="k">1</span><b>🕐 Horarios</b><small>Horario por días y del parqueadero</small></div>
+              <div class="opt"><span class="k">2</span><b>📍 Ubicación</b><small>Dirección y enlace a Google Maps</small></div>
+              <div class="opt flow"><span class="k">3</span><b>🛍️ Tiendas y marcas</b><small>Abre la lista de 10 tiendas</small></div>
+              <div class="opt"><span class="k">4</span><b>🎉 Eventos y sorteos</b><small>Eventos con su vigencia</small></div>
+              <div class="opt"><span class="k">5</span><b>🅿️ Parqueadero y servicios</b><small>5 servicios del centro comercial</small></div>
+              <div class="opt"><span class="k">6</span><b>💬 Atención al cliente / PQRS</b><small>Módulo y WhatsApp de atención</small></div>
+              <div class="opt"><span class="k">7</span><b>📱 Redes sociales</b><small>Instagram, Facebook y YouTube</small></div>
+              <div class="opt flow"><span class="k">8</span><b>✏️ Actualizar mis datos</b><small>Abre la actualización de datos</small></div>
+            </div>
+          </div>
+          <div class="cap">Las opciones en verde abren otro flujo; las demás responden con un texto fijo. El menú llega como texto numerado. El cliente responde con el número (1 o 1️⃣) y solo cuenta si el mensaje es únicamente ese número: «¿cuántos pisos hay, 3?» se trata como pregunta para la IA. Los números se comparan con la última lista que se mostró.</div>
+          <span class="meta">10:14</span>
+        </div></div>
+        <div class="convo" data-chat="menu"></div>
+      </section>
+
+      <!-- ═══ INFORMACIÓN ═══ -->
+      <section class="sec" id="informacion">
+        <div class="day"><span>Horarios, ubicación y servicios</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Respuestas fijas del menú</b><small>Diagrama de flujo · <code>src/handlers/info.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Elige 1, 2, 5, 6 o 7</b></div><p class="note">4 · eventos tiene su propia lógica de fechas</p></div>
+              <div class="step"><div class="node sys">Arma el texto con la base de conocimiento</div></div>
+              <div class="step"><div class="node bot">Envía la respuesta + «¿Te ayudo con algo más?»</div></div>
+              <div class="step"><div class="node end">Puede escribir otro número del menú o una pregunta</div></div>
+            </div>
+          </div>
+          <div class="cap">Estas respuestas no pasan por la IA: siempre dicen lo mismo y se actualizan editando <code>knowledgeBase.js</code>. Después de una respuesta, los números siguen eligiendo opciones del menú principal, así que el cliente puede pedir «1» y luego «2» sin volver a ver el menú.</div>
+          <span class="meta">10:19</span>
+        </div></div>
+        <div class="convo" data-chat="info"></div>
+      </section>
+
+      <!-- ═══ EVENTOS ═══ -->
+      <section class="sec" id="eventos">
+        <div class="day"><span>Eventos y sorteos</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Vigencia de cada evento</b><small>Diagrama de flujo · <code>eventStatus()</code> en <code>knowledgeBase.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Elige 4 · Eventos y sorteos</b></div></div>
+              <div class="step"><div class="node sys">Revisa cada evento con la fecha de hoy en Colombia</div></div>
+              <div class="step"><div class="node q">¿Tiene fecha de inicio y de fin?</div><span class="arrow"><i>No</i></span><div class="node bot out">Se muestra como actividad permanente<small>Expedición Primavera</small></div></div>
+              <div class="step"><div class="node q" data-in="Sí">¿Hoy es antes del inicio?</div><span class="arrow"><i>Sí</i></span><div class="node bot out">«Inicia el …» con la vigencia</div></div>
+              <div class="step"><div class="node q" data-in="No">¿Hoy es después del fin?</div><span class="arrow"><i>Sí</i></span><div class="node bot out">«Ya finalizó» y remite a Atención al Cliente<small>sorteo de los 10 años, desde el 1 de octubre de 2026</small></div></div>
+              <div class="step"><div class="node end" data-in="No">Vigente: muestra las fechas y cómo participar</div></div>
+            </div>
+          </div>
+          <div class="cap">Hay 2 eventos cargados: <b>Expedición Primavera</b> (sin fechas) y el sorteo <b>Primavera Urbana celebra 10 años</b> de una camioneta BYD YUAN UP 2026, vigente del 1 de abril al 30 de septiembre de 2026 con facturas acumulables desde $500.000. Para publicar un sorteo nuevo basta con agregarlo con <code>startDate</code> y <code>endDate</code>; el bot calcula solo su estado.</div>
+          <span class="meta">10:30</span>
+        </div></div>
+        <div class="convo" data-chat="events"></div>
+      </section>
+
+      <!-- ═══ TIENDAS ═══ -->
+      <section class="sec" id="tiendas">
+        <div class="day"><span>Tiendas y marcas</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Directorio de tiendas</b><small>Diagrama de flujo · <code>src/handlers/info.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Elige 3 · Tiendas y marcas</b></div></div>
+              <div class="step"><div class="node bot">Lista numerada de 10 tiendas con local y piso<small>+ enlaces al directorio y a restaurantes</small></div></div>
+              <div class="step"><div class="node user">Responde con el número de la tienda</div></div>
+              <div class="step"><div class="node q">¿El número está en la lista?</div><span class="arrow"><i>No</i></span><div class="node sys out">El mensaje se trata como pregunta para la IA</div></div>
+              <div class="step"><div class="node bot" data-in="Sí">Detalle: nombre, local, piso y descripción + «¿Te ayudo con algo más?»</div></div>
+              <div class="step"><div class="node end">Los números siguen eligiendo tiendas hasta que se muestre otro menú</div></div>
+            </div>
+          </div>
+          <div class="cap">Tiendas cargadas: Falabella, Carulla, Farmatodo, Cruz Verde, Crepes &amp; Waffles, Vélez, Arturo Calle, Leonisa, Bella Piel y Adidas. Para otras marcas, la IA remite al directorio completo en primaveraurbana.co.</div>
+          <span class="meta">10:39</span>
+        </div></div>
+        <div class="convo" data-chat="stores"></div>
+      </section>
+
+      <!-- ═══ ACTUALIZAR ═══ -->
+      <section class="sec" id="actualizar">
+        <div class="day"><span>Actualizar mis datos</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Actualización de datos</b><small>Diagrama de flujo · <code>src/handlers/update.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Elige 8 · Actualizar mis datos</b></div></div>
+              <div class="step"><div class="node bot">Aviso de política + campos<small>1 Nombre · 2 Apellido · 3 Teléfono · 4 Email · 0 Finalizar</small></div></div>
+              <div class="step two"><div class="node q">¿Qué responde?</div><span class="arrow"><i>0</i></span><div class="node end out">«Proceso finalizado» + menú</div><span class="arrow r2"><i>otra cosa</i></span><div class="node bot out r2">Pide elegir una opción válida</div></div>
+              <div class="step"><div class="node bot" data-in="1 a 4">Pide el nuevo valor del campo</div></div>
+              <div class="step"><div class="node q">¿El valor es válido?</div><span class="arrow"><i>No</i></span><div class="node err out">Explica el error y espera otro valor</div></div>
+              <div class="step"><div class="node bot" data-in="Sí">Muestra el cambio y pide autorizar la política<small>1 Acepto · 2 Cancelar</small></div></div>
+              <div class="step"><div class="node q">¿Autoriza?</div><span class="arrow"><i>Cancelar</i></span><div class="node err out">«Actualización cancelada» + menú</div></div>
+              <div class="step"><div class="node sys" data-in="Acepto">Guarda el cambio en WEGROWCRM y registra la autorización<small>tpValorContacto + tpContactoInfoExtra</small></div><span class="arrow"><i>falla</i></span><div class="node err out">«No pudimos actualizar tus datos» y vuelve a los campos</div></div>
+              <div class="step"><div class="node end">«Datos actualizados» y ofrece editar otro campo</div></div>
+            </div>
+          </div>
+          <div class="cap">Cada cambio pide aceptar la política antes de guardarse, y se guarda en una transacción junto con la autorización. Escribir <b>0</b> termina el proceso en cualquier paso. Los valores nuevos pasan por las mismas validaciones que el registro.</div>
+          <span class="meta">11:01</span>
+        </div></div>
+        <div class="convo" data-chat="update"></div>
+      </section>
+
+      <!-- ═══ IA ═══ -->
+      <section class="sec" id="ia">
+        <div class="day"><span>Preguntas libres con IA</span></div>
+        <div class="row in first wide"><div class="msg tail doc">
+          <div class="doc-head"><span class="doc-ic"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v5H9zM3 16h6v5H3zm12 0h6v5h-6zM11 8h2v3h6v5h-2v-3H7v3H5v-5h6z"/></svg></span><span><b>Flujo · Respuesta con IA</b><small>Diagrama de flujo · <code>src/services/ai.js</code></small></span></div>
+          <div class="diagram">
+            <div class="trunk">
+              <div class="step"><div class="node user"><b>Pregunta libre</b><small>«¿dónde queda Adidas?»</small></div></div>
+              <div class="step"><div class="node sys">La IA recibe las instrucciones, la base de conocimiento completa, los últimos 10 mensajes y la fecha de hoy</div></div>
+              <div class="step"><div class="node q">¿Hubo respuesta?</div><span class="arrow"><i>No</i></span><div class="node err out">«Ups, tuve un problema para responderte» + WhatsApp de Atención al Cliente</div></div>
+              <div class="step"><div class="node bot" data-in="Sí">Envía la respuesta</div></div>
+              <div class="step"><div class="node sys">Guarda pregunta y respuesta en el historial<small>máximo 20 mensajes</small></div></div>
+              <div class="step"><div class="node end">La conversación sigue con contexto</div></div>
+            </div>
+          </div>
+          <div class="cap">Todo lo que no es un saludo, un comando ni un número de opción llega a la IA. El historial permite preguntas de seguimiento como «¿y a qué hora abre?».</div>
+          <span class="meta">11:19</span>
+        </div></div>
+
+        <div class="row in first"><div class="msg tail rich">
+          <h3>Instrucciones que sigue la IA</h3>
+          <ul>
+            <li>Responde solo con la base de conocimiento: ubicación, horarios, las 10 tiendas, eventos, atención al cliente, servicios y redes.</li>
+            <li>Si un dato no está, lo dice y no lo inventa. Remite al directorio de tiendas, al mapa de restaurantes o al WhatsApp de Atención al Cliente.</li>
+            <li>Escribe en español, con tono cálido, mensajes cortos, viñetas y *negrita* de WhatsApp.</li>
+            <li>No saluda en cada respuesta, porque el bot ya saludó.</li>
+            <li>Compara las fechas de los eventos con la fecha de hoy y avisa si ya terminaron.</li>
+            <li>Si la pregunta no tiene que ver con el centro comercial, lo dice con amabilidad y ofrece ayuda.</li>
+          </ul>
+          <span class="meta">11:19</span>
+        </div></div>
+        <div class="convo" data-chat="ai"></div>
+      </section>
+
+      <!-- ═══ REGLAS ═══ -->
+      <section class="sec" id="reglas">
+        <div class="day"><span>Comandos y reglas generales</span></div>
+        <div class="row in first"><div class="msg tail rich">
+          <h3>Reglas que aplican en cualquier momento</h3>
+          <div class="tblwrap"><table class="tbl">
+            <thead><tr><th>Regla</th><th>Comportamiento</th></tr></thead>
+            <tbody>
+              <tr><td>Volver al menú</td><td>«menú», «inicio», «opciones», «start», «empezar», «comenzar» o «volver», con o sin tilde. Cancelan un registro o una actualización en curso. Si el cliente no se ha identificado, muestran la bienvenida.</td></tr>
+              <tr><td>Salir de un proceso</td><td>«cancelar» durante el registro · «0» durante la actualización.</td></tr>
+              <tr><td>Saludos</td><td>Solo saludos sueltos: hola, buenas, buenos días, buenas tardes, hey, hi, hello, saludos. «Hola, ¿a qué hora abren?» se trata como pregunta.</td></tr>
+              <tr><td>Inactividad</td><td>Tras 30 minutos sin escribir (<code>AUTH_TIMEOUT_MINUTES</code>) se cierra la identificación, se borra el historial y se pide la cédula otra vez.</td></tr>
+              <tr><td>Intentos de cédula</td><td>Al tercer número no encontrado se ofrece el registro y el contador vuelve a cero.</td></tr>
+              <tr><td>Solo texto</td><td>Fotos, audios o archivos sin texto reciben un aviso.</td></tr>
+              <tr><td>Nombre de perfil</td><td>Se guarda el nombre de WhatsApp del cliente, por si WEGROWCRM no tiene uno.</td></tr>
+              <tr><td>Seguridad</td><td>Con <code>TWILIO_AUTH_TOKEN</code> configurado, se rechaza todo mensaje sin firma válida de Twilio.</td></tr>
+              <tr><td>Sesiones</td><td>En la memoria del servidor durante 24 horas. Si el servidor se reinicia, todos los clientes deben identificarse de nuevo.</td></tr>
+              <tr><td>Monitoreo</td><td><code>GET /health</code> y <code>GET /webhook</code> responden si el bot está activo.</td></tr>
+            </tbody>
+          </table></div>
+          <span class="meta">12:00</span>
+        </div></div>
+        <div class="convo" data-chat="rules"></div>
+      </section>
+
+      <!-- ═══ ESTADOS ═══ -->
+      <section class="sec" id="estados">
+        <div class="day"><span>Estados de la conversación</span></div>
+        <div class="row in first"><div class="msg tail rich">
+          <h3>Los 7 estados del flujo</h3>
+          <div class="tblwrap"><table class="tbl">
+            <thead><tr><th>Estado</th><th>Qué significa</th><th>Se llega cuando</th></tr></thead>
+            <tbody>
+              <tr><td><code>IDLE</code></td><td>Sin conversación todavía</td><td>Se crea una sesión nueva</td></tr>
+              <tr><td><code>AUTH</code></td><td>Esperando cédula o REGISTRO</td><td>Tras la bienvenida, al cancelar un registro o al cerrarse la sesión por inactividad</td></tr>
+              <tr><td><code>REGISTERING</code></td><td>Registro en curso</td><td>El cliente escribe REGISTRO</td></tr>
+              <tr><td><code>UPDATING</code></td><td>Actualización de datos en curso</td><td>El cliente elige la opción 8</td></tr>
+              <tr><td><code>MENU</code></td><td>Se mostró el menú principal</td><td>Al identificarse, saludar, escribir «menú» o terminar un proceso</td></tr>
+              <tr><td><code>STORE_LIST</code></td><td>Se mostró la lista de tiendas</td><td>El cliente elige la opción 3</td></tr>
+              <tr><td><code>CHATTING</code></td><td>Conversación libre</td><td>Tras responder una opción, una tienda o una pregunta</td></tr>
+            </tbody>
+          </table></div>
+          <span class="meta">12:30</span>
+        </div></div>
+        <div class="row in"><div class="msg rich">
+          <h3>Qué recuerda el bot de cada cliente</h3>
+          <ul>
+            <li>Si ya se identificó, su cédula y su nombre.</li>
+            <li>Los intentos fallidos de cédula.</li>
+            <li>La última lista numerada que vio, para entender «1», «2», «3»…</li>
+            <li>Los últimos 20 mensajes con la IA.</li>
+            <li>El registro o la actualización que tenga a medias.</li>
+          </ul>
+          <span class="meta">12:31</span>
+        </div></div>
+      </section>
+
+    </div>
+
+    <div class="composer" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-3.5-9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM12 17.5c2.3 0 4.3-1.5 5-3.5H7c.7 2 2.7 3.5 5 3.5z"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg>
+      <span class="fake">Escribe «menú» en cualquier momento para volver aquí</span>
+      <svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-2.1a7 7 0 0 0 6-6.9h-2z"/></svg>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  const POL = '📜 *Política de tratamiento de datos personales*\nPuedes consultarla aquí: https://wegrowcrm.com/policy.html';
+  const MENU_BODY = '¿Sobre qué quieres información? Responde con el número de la opción o escríbeme tu pregunta. 👇';
+  const MENU = MENU_BODY + '\n\n*Menú principal*\n1️⃣ 🕐 Horarios\n2️⃣ 📍 Ubicación\n3️⃣ 🛍️ Tiendas y marcas\n4️⃣ 🎉 Eventos y sorteos\n5️⃣ 🅿️ Parqueadero y servicios\n6️⃣ 💬 Atención al cliente / PQRS\n7️⃣ 📱 Redes sociales\n8️⃣ ✏️ Actualizar mis datos\n\n_Escribe *menú* en cualquier momento para volver aquí._';
+  const FOLLOW = '\n\n¿Te ayudo con algo más? Escribe tu pregunta o *menú* para ver las opciones. 💚';
+  const UPD = '1️⃣ Nombre\n2️⃣ Apellido\n3️⃣ Teléfono\n4️⃣ Email\n\n0️⃣ Finalizar y volver al menú';
+  const ATT = 'https://wa.me/573115935774';
+  const WELCOME = '¡Hola! 💚 Bienvenido a *Primavera Urbana*, el centro comercial que florece con la naturaleza en Villavicencio. 🌿\n\nSoy tu asistente virtual y puedo ayudarte con horarios, tiendas, eventos, servicios y más.\n\n' + POL + '\n\nPara continuar, envía tu *número de cédula*.\nSi aún no estás registrado, escribe *REGISTRO*.';
+
+  const CHATS = {
+    auth: { start: '9:21', items: [
+      ['c', 'Conversación de ejemplo con datos ficticios'],
+      ['o', 'Hola'],
+      ['i', WELCOME],
+      ['o', '1.020.304.050'],
+      ['i', 'No encontramos tu cédula. 🤔\nIntenta nuevamente o escribe *REGISTRO* para registrarte.'],
+      ['o', '1.020.304.055'],
+      ['i', '¡Hola, Laura Gómez! 💚 Qué bueno tenerte por aquí.\n\n' + MENU],
+      ['c', 'Otro cliente, al tercer intento fallido'],
+      ['o', '98765432'],
+      ['i', 'No encontramos tu cédula. 🤔\n\nPuedes registrarte escribiendo *REGISTRO*\n\nSi necesitas ayuda: ' + ATT]
+    ]},
+    register: { start: '9:32', items: [
+      ['c', 'Conversación de ejemplo con datos ficticios'],
+      ['o', 'REGISTRO'],
+      ['i', '📝 *Iniciemos tu registro*\n\n' + POL + '\n\nAl final te pediremos autorizar el tratamiento de tus datos.\nEscribe *cancelar* en cualquier momento para salir.\n\n📄 Ingresa tu número de documento:'],
+      ['o', '1122334455'],
+      ['i', '📌 Tipo de documento:\n1️⃣ CC\n2️⃣ CE\n3️⃣ PAS'],
+      ['o', '1'],
+      ['i', '👤 Ingresa tus nombres (solo nombres):'],
+      ['o', 'andrés felipe'],
+      ['i', '👤 Ingresa tus apellidos:'],
+      ['o', 'rojas díaz'],
+      ['i', '⚧ Género (Masculino o Femenino):'],
+      ['o', 'M'],
+      ['i', '📅 Fecha de nacimiento (AAAA-MM-DD):'],
+      ['o', '21/05/1990'],
+      ['i', '⚠️ Fecha inválida. Usa el formato AAAA-MM-DD (ej: 1990-05-21).'],
+      ['o', '1990-05-21'],
+      ['i', '📧 Correo electrónico:'],
+      ['o', 'andres.rojas@correo.com'],
+      ['i', '📱 Número de teléfono:'],
+      ['o', '300 123 4567'],
+      ['i', POL + '\n\n¿Autorizas el tratamiento de tus datos personales conforme a esta política?\n\n1️⃣ Acepto\n2️⃣ No acepto'],
+      ['o', '1'],
+      ['i', '📝 *Confirma tus datos:*\n\n📄 Documento: 1122334455\n📌 Tipo: CC\n👤 Nombre: Andrés Felipe\n👤 Apellido: Rojas Díaz\n⚧ Género: MASCULINO\n📅 Nacimiento: 1990-05-21\n📧 Email: andres.rojas@correo.com\n📱 Teléfono: 3001234567\n📜 Política de datos: Aceptada ✅\n\nResponde:\n✅ *SI* → guardar\n❌ *NO* → cancelar\n✏️ *EDITAR campo* → corregir (ej: editar email)'],
+      ['o', 'SI'],
+      ['i', '✅ ¡Registro completado!\n\n¡Hola, Andrés Felipe Rojas Díaz! 💚 Qué bueno tenerte por aquí.\n\n' + MENU_BODY + '§MENU']
+    ]},
+    menu: { start: '10:15', items: [
+      ['c', 'El cliente ya se identificó y vuelve a saludar'],
+      ['o', 'Buenas tardes'],
+      ['i', '¡Hola de nuevo, Laura Gómez! 💚 ¿En qué te puedo ayudar hoy?\n\n' + MENU]
+    ]},
+    info: { start: '10:20', items: [
+      ['o', '1'],
+      ['i', '*Horario de Primavera Urbana* 🕐\n\n• Lunes a jueves: 10:00 am – 8:00 pm\n• Viernes y sábado: 10:00 am – 9:00 pm\n• Domingos y festivos: 11:00 am – 8:00 pm\n\n🅿️ El parqueadero funciona de lunes a domingo de 6:00 am a 11:00 pm.' + FOLLOW],
+      ['o', '2'],
+      ['i', '*Ubicación* 📍\n\nCalle 15 # 40-01, barrio El Buque\nVillavicencio, Meta, Colombia\n\n🗺️ Cómo llegar: https://www.google.com/maps/search/?api=1&query=Primavera%20Urbana%20Calle%2015%20%23%2040-01%20Villavicencio' + FOLLOW],
+      ['o', '5'],
+      ['i', '*Servicios para ti* 🅿️\n\n• Puntos de información\n• Primeros auxilios\n• Préstamo de sillas de ruedas\n• Estacionamiento para automóviles, motocicletas y bicicletas: lunes a domingo de 6:00 am a 11:00 pm\n• Lockers para cascos: en el semisótano, a un costado del estacionamiento de bicicletas; lunes a domingo de 10:00 am a 10:00 pm' + FOLLOW],
+      ['o', '6'],
+      ['i', '*Atención al Cliente* 💬\n\nMódulo ubicado en la entrada principal donde te entregan la información del centro comercial. Allí puedes inscribir facturas, participar en sorteos, promociones y eventos, conocer las actividades periódicas, validar convenios y radicar PQRS.\n\n📲 WhatsApp: +57 311 593 5774\n' + ATT + FOLLOW],
+      ['o', '7'],
+      ['i', '*Síguenos en redes* 📱\n\n• Instagram: https://www.instagram.com/primavera_urbana/\n• Facebook: https://www.facebook.com/primaveraurbanacc/\n• YouTube: https://www.youtube.com/channel/UCZ-ai79HGLPnSf25NaZj0iA' + FOLLOW]
+    ]},
+    events: { start: '10:31', items: [
+      ['c', 'Respuesta que da hoy, 9 de noviembre de 2026: el sorteo ya terminó'],
+      ['o', '4'],
+      ['i', '*Eventos y actividades* 🎉\n\n*Expedición Primavera*\nUna experiencia con la naturaleza dentro de Primavera Urbana: aventuras con aprendizaje sobre la naturaleza, flora y fauna de la región, además de paz, tranquilidad y una conexión única con la naturaleza.\n\n———\n\n*Primavera Urbana celebra 10 años, floreciendo contigo*\nSorteo de una camioneta BYD YUAN UP modelo 2026. Participan las facturas de compra acumulables iguales o superiores a $500.000 de los establecimientos de comercio y de comidas del sector comercial de Primavera Urbana.\n\n⏱️ Este sorteo estuvo vigente del 1 de abril de 2026 al 30 de septiembre de 2026 y ya finalizó. Para conocer resultados o próximas promociones, acércate a Atención al Cliente.' + FOLLOW]
+    ]},
+    stores: { start: '10:40', items: [
+      ['o', '3'],
+      ['i', '*Tiendas y marcas* 🛍️\n\nElige una tienda para ver dónde queda y qué ofrece:\n\n*Tiendas*\n1️⃣ Falabella — Locales 101, 201 y 301 (Piso 1)\n2️⃣ Carulla — Local 100\n3️⃣ Farmatodo — Locales 302, 303 y 304 (Piso 3)\n4️⃣ Cruz Verde — Locales 228 y 229 (Piso 2)\n5️⃣ Crepes & Waffles — Local 143 (Piso 1)\n6️⃣ Vélez — Locales 109, 110 y 111 (Piso 1)\n7️⃣ Arturo Calle — Local 104 (Piso 1)\n8️⃣ Leonisa — Local 137 (Piso 1)\n9️⃣ Bella Piel — Local 234 (Piso 2)\n10️⃣ Adidas — Locales 219 y 220 (Piso 2)\n\n🔎 Directorio completo: https://primaveraurbana.co/tiendas/\n🍽️ Restaurantes: https://primaveraurbana.co/heladerias/restaurantes/'],
+      ['o', '10'],
+      ['i', '*Adidas*\n📍 Locales 219 y 220 (Piso 2)\n\nCalzado, ropa y accesorios deportivos y de moda.' + FOLLOW]
+    ]},
+    update: { start: '11:02', items: [
+      ['o', '8'],
+      ['i', '✏️ *Actualización de datos*\n\n' + POL + '\n\nPara actualizar tus datos debes aceptar la política.\n\n¿Qué deseas editar?\n\n' + UPD],
+      ['o', '4'],
+      ['i', '✏️ Escribe el nuevo valor para *Email*:'],
+      ['o', 'laura.gomez@nuevo.com'],
+      ['i', 'Vas a cambiar *Email* a: laura.gomez@nuevo.com\n\n' + POL + '\n\n¿Autorizas el tratamiento de tus datos personales conforme a esta política?\n\n1️⃣ Acepto\n2️⃣ Cancelar'],
+      ['o', '1'],
+      ['i', '✅ Datos actualizados correctamente.\n\n¿Deseas modificar otro campo?\n\n' + UPD],
+      ['o', '0'],
+      ['i', '✅ Proceso finalizado.\n\n' + MENU_BODY + '§MENU']
+    ]},
+    ai: { start: '11:20', items: [
+      ['c', 'Respuestas de ejemplo: la IA redacta cada una y el texto puede variar'],
+      ['o', '¿Dónde queda Adidas?'],
+      ['i', 'Adidas está en los *locales 219 y 220, piso 2*. 👟\nAllí encuentras calzado, ropa y accesorios deportivos y de moda.'],
+      ['o', '¿Cuánto cuesta el parqueadero?'],
+      ['i', 'No tengo la tarifa del parqueadero. 🙏 Lo que sí te puedo contar es que funciona de lunes a domingo de 6:00 am a 11:00 pm.\n\nPara tarifas, escribe a Atención al Cliente: ' + ATT],
+      ['o', '¿Y el sorteo de la camioneta sigue?'],
+      ['i', 'El sorteo de la camioneta BYD YUAN UP *ya finalizó*: estuvo vigente del 1 de abril al 30 de septiembre de 2026. 🚙\n\nPara conocer los resultados o próximas promociones, acércate al módulo de Atención al Cliente en la entrada principal.']
+    ]},
+    rules: { start: '12:01', items: [
+      ['c', 'Foto sin texto'],
+      ['p'],
+      ['i', 'Por ahora solo puedo leer mensajes de texto. 🙏 Escríbeme tu pregunta o *menú* para ver las opciones.'],
+      ['c', '«menú» en medio de una actualización de datos'],
+      ['o', 'menú'],
+      ['i', MENU_BODY + '§MENU'],
+      ['c', 'Después de 30 minutos sin escribir'],
+      ['o', 'Hola'],
+      ['i', '⏰ Tu sesión se cerró por inactividad.\n\nEnvía tu número de cédula para continuar.'],
+      ['c', 'Si la base de datos no responde'],
+      ['o', '1.020.304.055'],
+      ['i', 'Ups, no pudimos validar tu información en este momento. 😅 Intenta de nuevo en unos minutos.\n\nSi es urgente, comunícate con Atención al Cliente: ' + ATT],
+      ['c', 'Si la IA no logra responder'],
+      ['o', '¿Qué películas hay hoy?'],
+      ['i', 'Ups, tuve un problema para responderte. 😅 Intenta de nuevo en un momento o escribe *menú*.\n\nSi es urgente, comunícate con Atención al Cliente: ' + ATT]
+    ]}
+  };
+
+  const TICKS = '<svg width="16" height="11" viewBox="0 0 16 11" aria-label="Leído"><path fill="currentColor" d="M11.07.65 4.6 7.1 2.03 4.53.97 5.6l3.63 3.63 7.53-7.53zM15.03.65 8.56 7.1l-.9-.9-1.06 1.06 1.96 1.96 7.53-7.53z"/></svg>';
+  const QUOTE = '<span class="quote"><b>Menú principal</b>Las 8 opciones del menú van en este mismo mensaje</span>';
+  const PHOTO = '<div class="photo" role="img" aria-label="Foto enviada por el cliente"><svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 4 7.2 6H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3.2L15 4H9zm3 4.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg></div>';
+
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  // Formato de WhatsApp: *negrita*, _cursiva_, enlaces y saltos de línea
+  function fmt(text){
+    const urls = [];
+    let s = esc(text).replace(/https?:\/\/[^\s<]+/g, function(u){ urls.push(u); return '\u0000' + (urls.length - 1) + '\u0000'; });
+    s = s.replace(/\*([^*\n]+)\*/g, '<b>$1</b>');
+    s = s.replace(/(^|[\s(>])_([^_\n]+)_(?=$|[\s.,)<])/gm, '$1<i>$2</i>');
+    s = s.replace(/\u0000(\d+)\u0000/g, function(_m, i){ return '<a href="' + urls[i] + '" target="_blank" rel="noopener">' + urls[i] + '</a>'; });
+    return s.replace(/\n/g, '<br>').replace('§MENU', QUOTE);
+  }
+
+  document.querySelectorAll('[data-chat]').forEach(function(el){
+    const chat = CHATS[el.dataset.chat];
+    if (!chat) return;
+    let parts = chat.start.split(':').map(Number), h = parts[0], m = parts[1];
+    let prev = null, html = '';
+    chat.items.forEach(function(item){
+      const kind = item[0];
+      if (kind === 'c') { html += '<p class="notice">' + fmt(item[1]) + '</p>'; prev = null; return; }
+      const side = kind === 'i' ? 'in' : 'out';
+      const first = prev !== side;
+      const time = h + ':' + String(m).padStart(2, '0');
+      m += 1; if (m >= 60) { m -= 60; h += 1; }
+      const body = kind === 'p' ? PHOTO : fmt(item[1]);
+      html += '<div class="row ' + side + (first ? ' first' : '') + '"><div class="msg' + (first ? ' tail' : '') + '">' + body +
+        '<span class="meta">' + time + (side === 'out' ? TICKS : '') + '</span></div></div>';
+      prev = side;
+    });
+    el.innerHTML = html;
+  });
+
+  // Resalta la función visible en la barra lateral y en los chips
+  const scroller = document.getElementById('scroll');
+  const navs = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+  function setActive(id){
+    navs.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + id); });
+    const chip = document.querySelector('.chip.on');
+    if (chip) chip.parentElement.scrollLeft = chip.offsetLeft - 12;
+  }
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) setActive(e.target.id); });
+    }, { root: scroller, rootMargin: '-8% 0px -85% 0px' });
+    document.querySelectorAll('section.sec').forEach(function(s){ io.observe(s); });
+  }
+  setActive((location.hash || '#resumen').slice(1));
+
+  // Búsqueda en la barra lateral
+  const q = document.getElementById('q');
+  const items = Array.prototype.slice.call(document.querySelectorAll('.item'));
+  const empty = document.getElementById('empty');
+  const norm = function(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+  q.addEventListener('input', function(){
+    const v = norm(q.value.trim());
+    items.forEach(function(a){ a.hidden = !!v && norm(a.textContent).indexOf(v) === -1; });
+    empty.hidden = items.some(function(a){ return !a.hidden; });
+  });
+})();
+</script>
